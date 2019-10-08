@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useEffect,useState} from 'react';
+import './App.css'
+import Home from './pages/Home'
+import About from './pages/About'
+import NotFound from './pages/NotFound'
+import Loader from './components/Loader'
+import {Switch , Route} from 'react-router-dom'
 
 function App() {
+  const[loading,setLoading] = useState(true)
+  useEffect(()=>{
+    setLoading(false)
+  },[])
+  if (loading){
+    return (
+      <Loader />
+    )
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <>
+    <main>
+      <Switch>
+        <Route exact path='/' component={Home} />
+        <Route exact path='/about' component={About} />
+        <Route component={NotFound} />
+      </Switch>
+    </main>
+  </>
   );
 }
 
